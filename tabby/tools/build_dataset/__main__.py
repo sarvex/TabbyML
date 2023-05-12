@@ -33,7 +33,7 @@ def read_valid_extensions():
 
 def read_extension_to_language_mappings():
     content = read_languages_to_file_extensions()
-    mappings = dict()
+    mappings = {}
     for k, exts in content.items():
         for x in exts:
             mappings[x] = k
@@ -70,13 +70,12 @@ def dataset_iter(project_dir, files):
 
 def count_by_language(dataset):
     key = "language"
-    df = (
+    return (
         pd.DataFrame(dataset[key], columns=[key])
         .groupby([key])
         .size()
         .to_frame("count")
     )
-    return df
 
 
 def to_id(*args):
@@ -106,10 +105,7 @@ if __name__ == "__main__":
             return False
 
         _, extname = os.path.splitext(x)
-        if not extname in valid_extensions:
-            return False
-
-        return True
+        return extname in valid_extensions
 
     args = parse_args()
     files = list(

@@ -35,8 +35,7 @@ class ConstantLengthDataset:
 
     def __call__(self):
         def gen():
-            for x in self:
-                yield x
+            yield from self
 
         return gen()
 

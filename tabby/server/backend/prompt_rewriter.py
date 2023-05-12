@@ -21,7 +21,7 @@ class PromptRewriter:
         tokens = [x for x in tokens if len(x) >= 3]
 
         # Remove tokens in language reserved_keywords.
-        tokens = set([x for x in tokens if x not in preset.reserved_keywords])
+        tokens = {x for x in tokens if x not in preset.reserved_keywords}
 
         if len(tokens) > 3:
             return " ".join(tokens)

@@ -44,11 +44,7 @@ class TritonService:
         if preset is None:
             return []
 
-        if self.rewriter:
-            prompt = self.rewriter(preset, data.prompt)
-        else:
-            prompt = data.prompt
-
+        prompt = self.rewriter(preset, data.prompt) if self.rewriter else data.prompt
         input_start_ids = np.expand_dims(self.tokenizer.encode(prompt), 0)
         input_start_ids = np.repeat(input_start_ids, n, axis=0).astype(np_type)
         prompt_len = input_start_ids.shape[1]
